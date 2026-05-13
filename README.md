@@ -8,13 +8,13 @@ Project repository for Group R26-IT-077.
 ## Description
 This repository is created for assignment submission and project management.
 
-IT22168122-
+IT22168122- Wimalasena K.H.N
 
-IT22222718-
+IT22222718- Weerakoon W.M.U
 
-IT22122728- MENDIS S.W.D.V 
+IT22122728- Mendis S.W.D.V 
 
-IT22177278-
+IT22177278- Kanishka P.H.A.T
 
 # Multimodal Early Recurrence Prediction of Liver Cancer Using CT Imaging and Clinical Text Analysis
 
