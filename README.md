@@ -18,7 +18,13 @@ IT22177278- Kanishka P.H.A.T
 
 # Multimodal Early Recurrence Prediction of Liver Cancer Using CT Imaging and Clinical Text Analysis
 
-
+---
+## Advanced Image Feature Extraction
+ type your part....
+---
+## Contextual Clinical Text Feature Extraction
+ type your part....
+---
 
 
 ## Cross-Modal Feature Fusion with Attention (CMFA)
@@ -171,4 +177,7 @@ The prototype successfully:
 
 ---
 
+## Predictive Risk Modeling with Explainability
+ type your part....
+---
 
