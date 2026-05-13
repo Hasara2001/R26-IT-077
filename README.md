@@ -256,11 +256,7 @@ The fused multimodal representations are intended for downstream recurrence pred
 
 # 💡 Novelty
 
-The proposed CMFA architecture introduces:
-
-> **Bidirectional cross-modal attention-based multimodal fusion between CT image features and clinical text features for liver cancer recurrence prediction.**
-
-Unlike traditional baseline fusion methods, the model dynamically learns interactions between modalities before generating fused representations.
+The novelty of the proposed Cross-Modal Feature Fusion with Attention (CMFA) module lies in its ability to dynamically integrate CT imaging features and clinical text features using a bidirectional multi-head cross-attention mechanism for liver cancer early recurrence prediction. Unlike traditional approaches that rely on single-modality analysis or static fusion methods such as simple concatenation, the proposed CMFA architecture enables meaningful interaction learning between imaging and clinical modalities. The model allows CT image embeddings and clinical text embeddings to attend to each other, thereby capturing complex multimodal relationships and clinically relevant patterns that may not be visible when each modality is analyzed independently. Through this attention-guided fusion strategy, the system generates a unified multimodal representation (`F_fused`) that combines structural tumor characteristics and patient-specific clinical context within a shared embedding space. This interaction-aware multimodal fusion approach enhances the model’s ability to support more accurate and context-aware liver cancer recurrence prediction.
 
 ---
 
