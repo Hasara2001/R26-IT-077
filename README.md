@@ -21,9 +21,28 @@ IT22177278- Kanishka P.H.A.T
 ---
 ## Advanced Image Feature Extraction
  type your part....
+
+
+
+ 
+
+
+ 
+
+
+ 
 ---
 ## Contextual Clinical Text Feature Extraction
  type your part....
+
+
+
+
+ 
+
+
+
+ 
 ---
 
 
@@ -179,5 +198,11 @@ The prototype successfully:
 
 ## Predictive Risk Modeling with Explainability
  type your part....
+
+
+
+
+
+ 
 ---
 
