@@ -92,7 +92,7 @@ The component uses the **LiTS — Liver Tumour Segmentation Benchmark** dataset:
 
 The proposed AIFE pipeline introduces three novel contributions:
 
-> **1.  Radiomic + CNN Comparison Pipeline**
+> **1.  Radiomic + feature extraction  Pipeline**
 > First system to combine IBSI-compliant radiomics with pretrained 2D CNNs and directly compare both approaches on the LiTS dataset specifically for liver recurrence prediction. Most existing works use either pure radiomics or pure CNN — not both with systematic comparison.
 
 > **2. UNet-Guided Tumour Slice Selection**
