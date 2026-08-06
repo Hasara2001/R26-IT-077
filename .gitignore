@@ -1,0 +1,11 @@
+# Ignore Data files
+data/
+*.csv
+
+# Ignore Saved Models
+models/
+*.pkl
+
+# Ignore Python Cache
+__pycache__/
+.ipynb_checkpoints/
