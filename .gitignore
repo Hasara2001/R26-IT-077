@@ -1,5 +1,6 @@
 # Ignore Data files
-data/
+data/*
+!data/api/
 *.csv
 
 # Ignore Saved Models
