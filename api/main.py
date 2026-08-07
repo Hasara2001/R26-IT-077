@@ -9,7 +9,7 @@ import os
 app = FastAPI(title="Liver Cancer Recurrence Prediction API", version="1.0")
 
 # 2. Load Model and Scaler
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(BASE_DIR, 'models', 'best_xgb_classifier.pkl')
 SCALER_PATH = os.path.join(BASE_DIR, 'models', 'feature_scaler.pkl')
 
