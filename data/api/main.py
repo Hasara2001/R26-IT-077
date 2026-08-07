@@ -5,10 +5,10 @@ import pandas as pd
 import numpy as np
 import os
 
-# 1. FastAPI Application එක ආරම්භ කිරීම
+# 1. Initialize FastAPI Application
 app = FastAPI(title="Liver Cancer Recurrence Prediction API", version="1.0")
 
-# 2. Model එක සහ Scaler එක Load කරගැනීම
+# 2. Load Model and Scaler
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 MODEL_PATH = os.path.join(BASE_DIR, 'models', 'best_xgb_classifier.pkl')
 SCALER_PATH = os.path.join(BASE_DIR, 'models', 'feature_scaler.pkl')
@@ -19,7 +19,7 @@ try:
 except Exception as e:
     print(f"Error loading models: {e}")
 
-# 3. App එකෙන් එන දත්ත වල හැඩය (Input Schema) Pydantic හරහා සැකසීම
+# 3. Define Input Schema using Pydantic
 class PatientData(BaseModel):
     tumor_size_cm: float
     tumor_number: int
@@ -30,32 +30,32 @@ class PatientData(BaseModel):
     text_embedding_risk_score: float
     multimodal_feature_vector_norm: float
 
-# 4. Prediction එක කරන POST Endpoint එක හැදීම
+# 4. Create POST Endpoint for Prediction
 @app.post("/predict")
 def predict_recurrence(data: PatientData):
     try:
-        # Pydantic model එක Dictionary එකක් කරලා ඊටපස්සේ Pandas DataFrame එකක් බවට පත් කිරීම
+        # Convert Pydantic model to Dictionary, then to Pandas DataFrame
         input_data = pd.DataFrame([data.dict()])
         
-        # දත්ත Scaling කිරීම (Model එක Train කරපු විදිහටම)
+        # Scale input data (matching the training configuration)
         scaled_data = scaler.transform(input_data)
         
-        # පුරෝකථනය (Prediction) සහ සම්භාවිතාව (Probability) ගැනීම
+        # Obtain Prediction and Probability
         prediction = model.predict(scaled_data)[0]
         probability = model.predict_proba(scaled_data)[0][1] * 100
         
-        # ප්‍රතිඵලය App එකට යැවීම (JSON format එකෙන්)
+        # Return result to the App (in JSON format)
         return {
             "prediction": int(prediction),
             "probability_percentage": round(float(probability), 2),
             "risk_level": "High Risk" if prediction == 1 else "Low Risk",
-            "message": "මෙම රෝගියාට අක්මා පිළිකාව නැවත ඇතිවීමේ දැඩි අවදානමක් ඇත." if prediction == 1 else "අවදානම අඩු මට්ටමක පවතී."
+            "message": "This patient has a high risk of liver cancer recurrence." if prediction == 1 else "The risk is at a low level."
         }
         
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-# App එක වැඩද කියලා බලන්න Root endpoint එකක්
+# Root endpoint to check if the App is running
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Liver Cancer Prediction API!"}
