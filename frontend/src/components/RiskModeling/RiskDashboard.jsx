@@ -30,7 +30,6 @@ const RiskDashboard = () => {
     };
 
     const calculateMockImpact = (data, prediction) => {
-        // Simple mock calculation to show feature importance based on user input
         const impacts = [
             { name: 'Tumor Size', value: (parseFloat(data.tumor_size_cm) || 0) * 0.8 },
             { name: 'Tumor Count', value: (parseFloat(data.tumor_number) || 0) * 1.2 },
@@ -42,9 +41,8 @@ const RiskDashboard = () => {
             { name: 'Multimodal', value: (parseFloat(data.multimodal_feature_vector_norm) || 0) * 6.0 }
         ];
 
-        // Sort by highest absolute value
         const sorted = impacts.sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
-        setMockImpactData(sorted.slice(0, 6)); // Show top 6 features
+        setMockImpactData(sorted.slice(0, 6));
     };
 
     const handleSubmit = async (e) => {
@@ -53,7 +51,6 @@ const RiskDashboard = () => {
         setError(null);
         
         try {
-            // Parse inputs to float/int before sending
             const payload = {
                 tumor_size_cm: parseFloat(formData.tumor_size_cm),
                 tumor_number: parseInt(formData.tumor_number, 10),
@@ -106,10 +103,10 @@ const RiskDashboard = () => {
     );
 
     return (
-        <div className="dashboard-container">
+        <div className="dashboard-container animate-fade-up">
             <header className="dashboard-header">
                 <h1 className="dashboard-title">
-                    <Activity size={32} color="#3b82f6" />
+                    <Activity size={32} color="var(--primary-accent)" />
                     HepatoAI Clinical Predictor
                 </h1>
                 <p className="dashboard-subtitle">
@@ -118,10 +115,9 @@ const RiskDashboard = () => {
             </header>
 
             <div className="dashboard-grid">
-                {/* Left Column: Data Input */}
                 <div className="card">
                     <h2 className="card-title">
-                        <Activity size={24} color="#64748b" />
+                        <Activity size={24} color="var(--text-secondary)" />
                         Patient Clinical Data
                     </h2>
                     <form onSubmit={handleSubmit} className="form-grid">
@@ -149,15 +145,13 @@ const RiskDashboard = () => {
                     </form>
                     
                     {error && (
-                        <div style={{ marginTop: '1rem', padding: '1rem', background: '#fef2f2', border: '1px solid #ef4444', color: '#b91c1c', borderRadius: '0.5rem' }}>
+                        <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--bg-card)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: '0.5rem' }}>
                             {error}
                         </div>
                     )}
                 </div>
 
-                {/* Right Column: Results & XAI */}
                 <div className="result-container">
-                    {/* Prediction Result Card */}
                     <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
                         {result ? (
                             <div className={`result-card ${result.prediction === 1 ? 'result-high-risk' : 'result-low-risk'}`}>
@@ -174,16 +168,15 @@ const RiskDashboard = () => {
                             </div>
                         ) : (
                             <div className="empty-state" style={{ minHeight: '150px' }}>
-                                <Activity size={48} opacity={0.5} />
+                                <Activity size={48} opacity={0.3} color="var(--primary-accent)" />
                                 <p>Awaiting clinical data submission...</p>
                             </div>
                         )}
                     </div>
 
-                    {/* Explainability (XAI) Chart */}
                     <div className="card">
                         <h2 className="card-title">
-                            <BarChart2 size={24} color="#64748b" />
+                            <BarChart2 size={24} color="var(--text-secondary)" />
                             Feature Importance (Explainability)
                         </h2>
                         
@@ -196,14 +189,15 @@ const RiskDashboard = () => {
                                         margin={{ top: 5, right: 30, left: 40, bottom: 5 }}
                                     >
                                         <XAxis type="number" hide />
-                                        <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#475569', fontSize: 12}} width={100} />
+                                        <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} width={100} />
                                         <Tooltip 
-                                            cursor={{fill: 'transparent'}}
-                                            contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'}}
+                                            cursor={{fill: 'rgba(148, 163, 184, 0.1)'}}
+                                            contentStyle={{borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'}}
+                                            itemStyle={{color: 'var(--text-primary)'}}
                                         />
                                         <Bar dataKey="value" radius={[0, 4, 4, 0]}>
                                             {mockImpactData.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={result.prediction === 1 ? '#ef4444' : '#3b82f6'} />
+                                                <Cell key={`cell-${index}`} fill={result.prediction === 1 ? 'var(--danger)' : 'var(--primary-accent)'} />
                                             ))}
                                         </Bar>
                                     </BarChart>
@@ -211,7 +205,7 @@ const RiskDashboard = () => {
                             </div>
                         ) : (
                             <div className="empty-state chart-container">
-                                <BarChart2 size={48} opacity={0.2} />
+                                <BarChart2 size={48} opacity={0.2} color="var(--text-secondary)" />
                                 <p>Feature importance chart will appear here after analysis.</p>
                             </div>
                         )}

@@ -1,1 +1,73 @@
-/* Cleared default Vite styles to prevent interference */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --primary-accent: #2563eb;
+  --primary-hover: #1d4ed8;
+  --accent-glow: rgba(37, 99, 235, 0.15);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --input-bg: #ffffff;
+  --nav-hover: #eff6ff;
+  --danger: #ef4444;
+  --success: #22c55e;
+}
+
+[data-theme='dark'] {
+  --bg-main: #0B0F19; /* Deep premium dark */
+  --bg-card: #111827; /* Dark slate */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #1e293b;
+  --primary-accent: #3b82f6;
+  --primary-hover: #60a5fa;
+  --accent-glow: rgba(59, 130, 246, 0.25);
+  --header-bg: rgba(11, 15, 25, 0.85);
+  --input-bg: #1e293b;
+  --nav-hover: #1e293b;
+  --danger: #f87171;
+  --success: #4ade80;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Base Animations */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scrollbar styling for enterprise feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
