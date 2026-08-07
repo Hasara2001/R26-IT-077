@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import joblib
 import pandas as pd
@@ -7,6 +8,14 @@ import os
 
 # 1. Initialize FastAPI Application
 app = FastAPI(title="Liver Cancer Recurrence Prediction API", version="1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # 2. Load Model and Scaler
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
