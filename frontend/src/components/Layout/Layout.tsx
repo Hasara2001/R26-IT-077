@@ -60,11 +60,13 @@ const Layout = () => {
             <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle Theme">
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
-            <div className="user-profile">
-              <div className="avatar">
-                <User size={20} />
+            <Link to="/profile" style={{ textDecoration: 'none' }}>
+              <div className="user-profile">
+                <div className="avatar" title="View Profile">
+                  <User size={20} />
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </header>

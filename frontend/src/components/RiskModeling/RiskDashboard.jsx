@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertCircle, CheckCircle, Activity, BarChart2, Loader2 } from 'lucide-react';
+import { AlertCircle, CheckCircle, Activity, BarChart2, Loader2, BrainCircuit } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import './RiskDashboard.css';
 
@@ -75,12 +75,14 @@ const RiskDashboard = () => {
             }
 
             const data = await response.json();
-            setResult(data);
-            calculateMockImpact(formData, data.prediction);
+            setTimeout(() => {
+                setResult(data);
+                calculateMockImpact(formData, data.prediction);
+                setLoading(false);
+            }, 800); // Artificial delay to show off the cool loading animation
             
         } catch (err) {
             setError(err.message || "Failed to connect to the prediction API.");
-        } finally {
             setLoading(false);
         }
     };
@@ -106,26 +108,26 @@ const RiskDashboard = () => {
         <div className="dashboard-container animate-fade-up">
             <header className="dashboard-header">
                 <h1 className="dashboard-title">
-                    <Activity size={32} color="var(--primary-accent)" />
-                    HepatoAI Clinical Predictor
+                    <BrainCircuit size={48} color="var(--primary-accent)" style={{ filter: 'drop-shadow(0 0 10px var(--accent-glow))' }} />
+                    HepatoAI Diagnostic Engine
                 </h1>
                 <p className="dashboard-subtitle">
-                    Enterprise AI-driven diagnostic system for liver cancer recurrence prediction.
+                    Advanced multimodal neural risk stratification for precise oncological outcomes.
                 </p>
             </header>
 
             <div className="dashboard-grid">
-                <div className="card">
+                <div className="card glass-panel">
                     <h2 className="card-title">
-                        <Activity size={24} color="var(--text-secondary)" />
-                        Patient Clinical Data
+                        <Activity size={24} color="var(--primary-accent)" />
+                        Clinical Parameters
                     </h2>
                     <form onSubmit={handleSubmit} className="form-grid">
                         {renderInput('Tumor Size (cm)', 'tumor_size_cm')}
                         {renderInput('Tumor Number', 'tumor_number')}
                         {renderInput('Vascular Invasion (0 or 1)', 'vascular_invasion_imaging')}
                         {renderInput('AFP Level (ng/ml)', 'afp_ngml')}
-                        {renderInput('Cirrhosis Present (0 or 1)', 'cirrhosis_present')}
+                        {renderInput('Cirrhosis (0 or 1)', 'cirrhosis_present')}
                         {renderInput('Image Feature Norm', 'image_feature_vector_norm')}
                         {renderInput('Text Risk Score', 'text_embedding_risk_score')}
                         {renderInput('Multimodal Vector Norm', 'multimodal_feature_vector_norm')}
@@ -136,27 +138,27 @@ const RiskDashboard = () => {
                             disabled={loading}
                         >
                             {loading ? (
-                                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                                    <Loader2 className="animate-spin" size={20} />
-                                    Analyzing Patient Data...
+                                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
+                                    <Loader2 className="animate-spin" size={24} />
+                                    Synthesizing AI Inference...
                                 </span>
-                            ) : 'Run AI Prediction Analysis'}
+                            ) : 'Initialize AI Risk Assessment'}
                         </button>
                     </form>
                     
                     {error && (
-                        <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--bg-card)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: '0.5rem' }}>
+                        <div style={{ marginTop: '1.5rem', padding: '1.25rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: '0.75rem', fontWeight: 600 }}>
                             {error}
                         </div>
                     )}
                 </div>
 
                 <div className="result-container">
-                    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                    <div className="card glass-panel" style={{ padding: 0, overflow: 'hidden' }}>
                         {result ? (
                             <div className={`result-card ${result.prediction === 1 ? 'result-high-risk' : 'result-low-risk'}`}>
                                 <div className="result-icon">
-                                    {result.prediction === 1 ? <AlertCircle size={40} /> : <CheckCircle size={40} />}
+                                    {result.prediction === 1 ? <AlertCircle size={48} /> : <CheckCircle size={48} />}
                                 </div>
                                 <div className="result-content">
                                     <h3>{result.risk_level}</h3>
@@ -167,17 +169,17 @@ const RiskDashboard = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div className="empty-state" style={{ minHeight: '150px' }}>
-                                <Activity size={48} opacity={0.3} color="var(--primary-accent)" />
-                                <p>Awaiting clinical data submission...</p>
+                            <div className="empty-state" style={{ minHeight: '200px' }}>
+                                <BrainCircuit size={64} opacity={0.3} color="var(--primary-accent)" />
+                                <p style={{ fontSize: '1.1rem', fontWeight: 500 }}>Awaiting clinical payload for inference...</p>
                             </div>
                         )}
                     </div>
 
-                    <div className="card">
+                    <div className="card glass-panel">
                         <h2 className="card-title">
-                            <BarChart2 size={24} color="var(--text-secondary)" />
-                            Feature Importance (Explainability)
+                            <BarChart2 size={24} color="var(--primary-accent)" />
+                            Explainability Matrix (XAI)
                         </h2>
                         
                         {result && mockImpactData.length > 0 ? (
@@ -189,13 +191,13 @@ const RiskDashboard = () => {
                                         margin={{ top: 5, right: 30, left: 40, bottom: 5 }}
                                     >
                                         <XAxis type="number" hide />
-                                        <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} width={100} />
+                                        <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 13, fontWeight: 600}} width={110} />
                                         <Tooltip 
                                             cursor={{fill: 'rgba(148, 163, 184, 0.1)'}}
-                                            contentStyle={{borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'}}
-                                            itemStyle={{color: 'var(--text-primary)'}}
+                                            contentStyle={{borderRadius: '12px', border: '1px solid var(--glass-border)', backgroundColor: 'var(--glass-bg)', color: 'var(--text-primary)', boxShadow: '0 8px 32px rgba(0,0,0,0.2)', backdropFilter: 'blur(10px)'}}
+                                            itemStyle={{color: 'var(--text-primary)', fontWeight: 700}}
                                         />
-                                        <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                                        <Bar dataKey="value" radius={[0, 6, 6, 0]}>
                                             {mockImpactData.map((entry, index) => (
                                                 <Cell key={`cell-${index}`} fill={result.prediction === 1 ? 'var(--danger)' : 'var(--primary-accent)'} />
                                             ))}
@@ -205,8 +207,8 @@ const RiskDashboard = () => {
                             </div>
                         ) : (
                             <div className="empty-state chart-container">
-                                <BarChart2 size={48} opacity={0.2} color="var(--text-secondary)" />
-                                <p>Feature importance chart will appear here after analysis.</p>
+                                <BarChart2 size={64} opacity={0.2} color="var(--text-secondary)" />
+                                <p>Feature importance mapping will generate post-inference.</p>
                             </div>
                         )}
                     </div>

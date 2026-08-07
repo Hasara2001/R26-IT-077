@@ -5,16 +5,21 @@ import RiskDashboard from './components/RiskModeling/RiskDashboard';
 import PatientHistory from './pages/PatientHistory';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
+import Profile from './pages/Profile';
+import Login from './pages/Login';
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/login" element={<Login />} />
+        
         <Route path="/" element={<Layout />}>
           <Route index element={<RiskDashboard />} />
           <Route path="patients" element={<PatientHistory />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
     </Router>
